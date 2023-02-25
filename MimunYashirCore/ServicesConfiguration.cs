@@ -14,6 +14,8 @@ namespace MimunYashirCore
         public static void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<IAccountService, AccountService>();
+            services.AddScoped<ICustomerService, CustomerService>();
+            services.AddSingleton<IMemoryCacheService, MemoryCacheService>();
             services.AddAutoMapper(typeof(DomainAutoMapperProfile).Assembly);
         }
     }

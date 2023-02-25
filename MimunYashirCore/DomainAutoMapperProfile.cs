@@ -16,6 +16,7 @@ namespace MimunYashirCore
             CreateMap<Package, PackageModel>();
             CreateMap<Contract, ContractModel>();
             CreateMap<Customer, CustomerModel>().ReverseMap();
+            CreateMap<UpdateAddressModel, Customer>();
         }
     }
 }

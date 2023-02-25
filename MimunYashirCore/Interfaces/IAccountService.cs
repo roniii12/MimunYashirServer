@@ -10,6 +10,6 @@ namespace MimunYashirCore.Interfaces
 {
     public interface IAccountService
     {
-        public Task<Customer> FindCustomerByIdAsync(string Id);
+        public Task<string> GetCustomerIdByIdAsync(string Id);
     }
 }

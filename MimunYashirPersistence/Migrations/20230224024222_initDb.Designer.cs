@@ -113,7 +113,7 @@ namespace MimunYashirPersistence.Migrations
             modelBuilder.Entity("MimunYashirPersistence.Contract", b =>
                 {
                     b.HasOne("MimunYashirPersistence.Customer", "Customer")
-                        .WithMany("Contracts")
+                        .WithMany("Contract")
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -124,7 +124,7 @@ namespace MimunYashirPersistence.Migrations
             modelBuilder.Entity("MimunYashirPersistence.Package", b =>
                 {
                     b.HasOne("MimunYashirPersistence.Contract", "Contract")
-                        .WithMany("Packages")
+                        .WithMany("Package")
                         .HasForeignKey("ContractId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -134,12 +134,12 @@ namespace MimunYashirPersistence.Migrations
 
             modelBuilder.Entity("MimunYashirPersistence.Contract", b =>
                 {
-                    b.Navigation("Packages");
+                    b.Navigation("Package");
                 });
 
             modelBuilder.Entity("MimunYashirPersistence.Customer", b =>
                 {
-                    b.Navigation("Contracts");
+                    b.Navigation("Contract");
                 });
 #pragma warning restore 612, 618
         }

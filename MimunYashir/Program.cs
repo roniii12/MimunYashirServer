@@ -14,17 +14,20 @@ namespace MimunYashir
             try
             {
                 var builder = WebApplication.CreateBuilder(args);
-
                 SetNlogConnectionString(builder.Configuration.GetMainConnectionString());
-
                 AppHostConfiguration.ConfigureServices(builder.Services, builder.Configuration);
 
                 builder.Services.AddControllers();
                 builder.Services.AddEndpointsApiExplorer();
                 builder.Services.AddSwaggerGen();
 
-                builder.Logging.ClearProviders();
-                builder.Host.UseNLog();
+                builder.Host.ConfigureLogging(logging =>
+                {
+                    logging.ClearProviders();
+                    logging.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Trace);
+                    logging.AddConsole();
+                    logging.AddDebug();
+                }).UseNLog();
 
                 var app = builder.Build();
 
@@ -35,10 +38,11 @@ namespace MimunYashir
                     app.UseSwaggerUI();
                 }
 
+                //app.UseHttpsRedirection();
                 app.UseMiddleware<Middlewares.RequestLoggerMiddleware>();
 
-                app.UseHttpsRedirection();
-
+                app.UseRouting();
+                app.UseAuthentication();
                 app.UseAuthorization();
 
 

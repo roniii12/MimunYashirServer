@@ -74,12 +74,12 @@ namespace MimunYashirPersistence.CompiledModels
                 propertyInfo: typeof(Contract).GetProperty("Customer", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 fieldInfo: typeof(Contract).GetField("<Customer>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
 
-            var contracts = principalEntityType.AddNavigation("Contracts",
+            var contracts = principalEntityType.AddNavigation("Contract",
                 runtimeForeignKey,
                 onDependent: false,
                 typeof(IEnumerable<Contract>),
-                propertyInfo: typeof(Customer).GetProperty("Contracts", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                fieldInfo: typeof(Customer).GetField("<Contracts>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
+                propertyInfo: typeof(Customer).GetProperty("Contract", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(Customer).GetField("<Contract>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
 
             return runtimeForeignKey;
         }

@@ -18,14 +18,16 @@ namespace MimunYashir
         public const string AuthenticationScheme = "Bearer";
         public static void ConfigureServices(IServiceCollection services, IConfiguration configuration)
         {
-            services.AddSingleton(typeof(AppGeneralLogger<>), typeof(AppGeneralLogger<>));
-            services.AddScoped(typeof(IAppLogger<>), typeof(AppLogger<>));
-            services.AddMemoryCache();
             services.AddDbContext<MainDbContext>(options =>
             {
                 options.UseSqlServer(configuration.GetMainConnectionString());
             });
+            ConfigureAuthServerIdentity(services,configuration);
+            services.AddSingleton(typeof(AppGeneralLogger<>), typeof(AppGeneralLogger<>));
+            services.AddScoped(typeof(IAppLogger<>), typeof(AppLogger<>));
+            services.AddMemoryCache();
             services.AddScoped<IAppContext, WebAppContext>();
+            services.AddScoped<IAppLogContext, WebAppLogContext>();
             services.AddScoped<WebAppContext>();
             services.AddScoped(typeof(IAsyncRepository<>), typeof(MainEfRepository<>));
             services.AddSingleton<ConfigurationService>();
@@ -35,12 +37,7 @@ namespace MimunYashir
         private static void ConfigureAuthServerIdentity(IServiceCollection services, IConfiguration configuration)
         {
             var jwtConfig = configuration.GetJwtConfig();
-            services.AddAuthentication(options =>
-            {
-                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(o =>
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(o =>
             {
                 o.TokenValidationParameters = new TokenValidationParameters
                 {
@@ -52,8 +49,6 @@ namespace MimunYashir
                     ValidateAudience = true,
                     ValidateLifetime = true,
                     ValidateIssuerSigningKey = true,
-                    RequireExpirationTime = true,
-                    ClockSkew = TimeSpan.Zero,
                 };
             });
         }

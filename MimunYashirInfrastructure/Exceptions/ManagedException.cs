@@ -150,6 +150,6 @@ namespace MimunYashirInfrastructure.Exceptions
         UNDEFINED,
         GENERAL_HANDLER,
         ACCOUNT,
-        DETAILS_ACCOUNT
+        CUSTOMER
     }
 }
