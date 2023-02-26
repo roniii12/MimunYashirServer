@@ -17,6 +17,11 @@ namespace MimunYashirCore.Services
             _cache = cache;
         }
 
+        public void DeleteCache(string key)
+        {
+            _cache.Remove(key);
+        }
+
         public object? TryGetObjectFromCache(string key)
         {
             _cache.TryGetValue(key, out var value);
@@ -29,5 +34,6 @@ namespace MimunYashirCore.Services
             .SetAbsoluteExpiration(TimeSpan.FromMinutes(absoluteMin));
             _cache.Set(key, value, cacheEntryOptions);
         }
+        
     }
 }

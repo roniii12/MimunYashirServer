@@ -47,10 +47,9 @@ namespace MimunYashir.Controllers.Account
                     };
 
                 var token = CreateToken(authClaims);
-                return Ok(new
-                {
-                    Token = new JwtSecurityTokenHandler().WriteToken(token),
-                    Expiration = token.ValidTo
+                return Ok(new LoginModel{
+                    Id = loginModel.Id,
+                    Token = new JwtSecurityTokenHandler().WriteToken(token)
                 });
             }
             catch (Exception ex)

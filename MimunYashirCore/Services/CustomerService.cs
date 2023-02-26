@@ -50,6 +50,7 @@ namespace MimunYashirCore.Services
             customer = _mapper.Map<UpdateAddressModel, Customer>(addressModel, customer);
             await _customerRepo.UpdateAsync(customer).ConfigureAwait(false);
             var customerModel = _mapper.Map<CustomerModel>(customer);
+            _cacheService.DeleteCache(IMemoryCacheService.CUSTOMER_DETAILS + _context.UserId);
             return customerModel;
         }
     }

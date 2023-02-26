@@ -16,6 +16,15 @@ namespace MimunYashir
                 var builder = WebApplication.CreateBuilder(args);
                 SetNlogConnectionString(builder.Configuration.GetMainConnectionString());
                 AppHostConfiguration.ConfigureServices(builder.Services, builder.Configuration);
+                builder.Services.AddCors(options =>
+                {
+                    options.AddDefaultPolicy(builder =>
+                    {
+                        builder.AllowAnyOrigin();
+                        builder.AllowAnyMethod();
+                        builder.AllowAnyHeader();
+                    });
+                });
 
                 builder.Services.AddControllers();
                 builder.Services.AddEndpointsApiExplorer();
@@ -44,7 +53,7 @@ namespace MimunYashir
                 app.UseRouting();
                 app.UseAuthentication();
                 app.UseAuthorization();
-
+                app.UseCors();
 
                 app.MapControllers();
 

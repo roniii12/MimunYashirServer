@@ -12,5 +12,6 @@ namespace MimunYashirCore.Interfaces
         public const string CUSTOMER_ID = "CUSTOMER_ID";
         public object? TryGetObjectFromCache(string key);
         public void UpdateOrCreateCache(string key, object value, int slidingMin = 5, int absoluteMin = 30);
+        public void DeleteCache(string key);
     }
 }
